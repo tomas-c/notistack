@@ -207,7 +207,7 @@ const SnackbarItem: React.FC<SnackbarItemProps> = ({ classes, ...props }) => {
             onExited={callbacks.onExited}
             classes={{
                 wrapper: clsx(classes.collapseWrapper, { [classes.collapseWrapperDense]: dense }),
-                container: classes.collapseContainer
+                root: classes.collapseContainer
             }}
         >
             {/* @ts-ignore */}
