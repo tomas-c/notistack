@@ -5,7 +5,7 @@ import { Theme, emphasize, createMuiTheme as createTheme } from '@material-ui/co
 import Collapse from '@material-ui/core/Collapse';
 import SnackbarContent from '../SnackbarContent';
 import { getTransitionDirection } from './SnackbarItem.util';
-import { allClasses, REASONS, objectMerge, DEFAULTS, transformer } from '../utils/constants';
+import { allClasses, REASONS, objectMerge, DEFAULTS, transformer, SNACKBAR_INDENTS } from '../utils/constants';
 import { SharedProps, RequiredBy, TransitionHandlerProps, SnackbarProviderProps as ProviderProps } from '../index';
 import defaultIconVariants from '../utils/defaultIconVariants';
 import createChainedFunction from '../utils/createChainedFunction';
@@ -65,6 +65,16 @@ const styles = (theme: Theme) => {
             right: 0,
             bottom: 0,
             left: 0,
+        },
+        collapseContainer: {
+            pointerEvents: 'all',
+        },
+        collapseWrapper: {
+            padding: `${SNACKBAR_INDENTS.snackbar.default}px 0px`,
+            transition: 'padding 300ms ease 0ms',
+        },
+        collapseWrapperDense: {
+            padding: `${SNACKBAR_INDENTS.snackbar.dense}px 0px`,
         },
     });
 }
@@ -195,6 +205,10 @@ const SnackbarItem: React.FC<SnackbarItemProps> = ({ classes, ...props }) => {
             timeout={175}
             in={collapsed}
             onExited={callbacks.onExited}
+            classes={{
+                wrapper: clsx(classes.collapseWrapper, { [classes.collapseWrapperDense]: dense }),
+                container: classes.collapseContainer
+            }}
         >
             {/* @ts-ignore */}
             <Snackbar
